@@ -1,2 +1,2 @@
 # janlib
-comm useful libs
+common useful libs
