@@ -1,18 +1,21 @@
 
-CSRC = mo_buffer.c
+LIBNAME=libjan.a
+LIB=${ARCH}/${LIBNAME}
 
-CC = $(CROSS)gcc
-AR = $(CROSS)ar
+C_FILES=mo_buffer.c fdops.c time_rtems.c termios.c
+C_O_FILES=$(C_FILES:%.c=${ARCH}/%.o)
 
-CFLAGS = -Wall -g -O2 -Iinclude
+SRCS = $(C_FILES)
+OBJS = $(C_O_FILES)
 
-all:
-	$(CC) $(CFLAGS) -c $(CSRC)
-	$(AR) rv libjan.a *.o 
+include $(RTEMS_MAKEFILE_PATH)/Makefile.inc
+include $(RTEMS_CUSTOM)
+include $(RTEMS_SHARE)/make/lib.cfg
 
-test:
-	$(CC) $(CFLAGS) mo_buffer_test.c -ljan -L. -o test_mo_buffer && ./test_mo_buffer
+CFLAGS   += -Iinclude
 
-clean:
-	rm -fv *.o *.a test_*
+all:	${ARCH} $(SRCS) $(LIB)
+
+$(LIB): ${OBJS}
+	$(make-library)
 

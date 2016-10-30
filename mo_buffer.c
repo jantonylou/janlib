@@ -19,6 +19,12 @@ int mo_buffer_alloc(struct mo_buffer *mo, size_t size) {
     return 0;
 }
 
+void mo_buffer_init(struct mo_buffer *mo, void *mem_buf, size_t size) {
+    memset(mo, 0, sizeof(*mo));
+    mo->buf = mem_buf;
+    mo->size = size;
+}
+
 void mo_buffer_clean(struct mo_buffer *mo) {
     mo->rdp = mo->wrp;
 }

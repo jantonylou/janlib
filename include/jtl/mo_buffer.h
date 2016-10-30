@@ -19,6 +19,9 @@ struct mo_buffer {
 
 int mo_buffer_alloc(struct mo_buffer *mo, size_t size);
 void mo_buffer_free(struct mo_buffer *mo);
+
+void mo_buffer_init(struct mo_buffer *mo, void *mem_buf, size_t size);
+
 void mo_buffer_clean(struct mo_buffer *mo);
 
 int mo_buffer_write(struct mo_buffer *mo, const void *data, size_t len);
