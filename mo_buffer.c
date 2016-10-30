@@ -10,7 +10,7 @@ int mo_buffer_alloc(struct mo_buffer *mo, size_t size) {
 
     mo->buf = malloc(size); 
     if(mo->buf ==NULL)
-        return -ENOMEM;
+        return -1;
 
     mo->size = size;
     mo->wrp = 0;
