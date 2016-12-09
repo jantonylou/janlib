@@ -27,13 +27,14 @@ inline static int bits_test(uint8_t *bs, int nbits, int x) {
 
 inline static int bits_find(uint8_t *bs, int nlimit, int x) {
     uint8_t M = x==0 ? 0xFF : 0, b;
-    int i, j, N=nlimit/8, k=nlimit%8;
+    int i, j, N=nlimit/8, K=nlimit%8;
 
     for(i=0; i<N && bs[i]==M; i++){};
     b = bs[i];
+    if(i<N) K=8;
 
-    for(j=0; j<k; j++){
-        if(bits_test(b, n, x)) return i*8 + j;
+    for(j=0; j<K; j++){
+        if(bits_test(&b, j, x)) return i*8 + j;
     };
 
     return -1;
