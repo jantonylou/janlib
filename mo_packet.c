@@ -95,7 +95,6 @@ static int _do_packet_parse(struct mo_buffer *mo, void *buf, size_t size)
         pk->stat = PK_STAT_DATA;
         pk->left = 0;
 
-        //if(len==0 || (len+MO_PACKET_PROTO_SIZE) >mo_buffer_get_size(mo)) {
         if((len+MO_PACKET_PROTO_SIZE) >mo_buffer_get_size(mo)) {
             mo_buffer_drop_char(mo);
             continue;
@@ -148,8 +147,8 @@ int mo_packet_parse(struct mo_buffer *mo, void *buf, size_t size)
 
 int mo_packet_push(struct mo_buffer *mo, const void *buf, int len)
 {
-    if(len >(mo_buffer_get_space(mo) +MO_PACKET_PROTO_SIZE)) return -1;
-    if(len <=0) return -1;
+    if((len+MO_PACKET_PROTO_SIZE) >mo_buffer_get_space(mo)) return -1;
+    if(len <0) return -1;
 
     if(mo_buffer_putc(mo, MO_PACKET_MAGIC) <0) return -1;
     if(mo_buffer_putc(mo, len) <0) return -1;
