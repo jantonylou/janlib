@@ -19,3 +19,9 @@ all:	${ARCH} $(SRCS) $(LIB)
 $(LIB): ${OBJS}
 	$(make-library)
 
+mo_buffer_test:
+	gcc -Wall -g -I include/ -DJTL_MO_BUFFER_16BIT=1 mo_buffer.c mo_buffer_test.c && ./a.out
+	gcc -Wall -g -I include/ mo_buffer.c mo_buffer_test.c && ./a.out
+mo_packet_test:
+	gcc -Wall -g -I include/ -DJTL_MO_BUFFER_16BIT=1 -DJTL_MO_BUFFER_PRIV_DATA=4 mo_buffer.c mo_packet.c crc8.c mo_packet_test.c && ./a.out
+

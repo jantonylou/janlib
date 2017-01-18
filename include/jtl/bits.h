@@ -40,4 +40,9 @@ inline static int bits_find(uint8_t *bs, int nlimit, int x) {
     return -1;
 };
 
+// Most important bit position, when x=0, n=0
+#define MibP(n, type, x) do{ type _MibP_x=x; \
+    for(n=0; (_MibP_x)!=0; n++) { _MibP_x >>=1; } \
+}while(0)
+
 #endif
